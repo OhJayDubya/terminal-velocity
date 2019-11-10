@@ -22,6 +22,7 @@ const createAsteroid = (x, y) => {
 
 // Configures initial game state with all defaults
 const startGame = () => {
+    asteroids = []; // Clears playfield on restart
     return {
         active: true,
         score: 0,
