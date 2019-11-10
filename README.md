@@ -11,6 +11,7 @@ So in tribute to my favorite game development movement I wanted to try my hand a
 4. And finally the game needs to be quick and exciting, like an arcade game.
 
 **Basic Game Design**
+
 When it comes to the design of the game I want it to revolve around a few key concepts. Firstly I want each game to be quick so that each attempt can be over in a few seconds, for it to be super simple to play so that anyone can pick it up and finally to have some incentive such as a high score or timer.
 
 When it comes to deciding what kind of game to make this is where things get a bit more difficult. Not only do I want to create a game that matches the concepts that I have listed above, but I also need to make sure that the game can actually run in terminal without massive performance issues. For these reasons I decided to keep it simple and have a game that is all about avoiding fast moving incoming objects and racking up a score based on how long you can survive.
