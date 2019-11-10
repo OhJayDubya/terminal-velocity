@@ -20,7 +20,15 @@ const createAsteroid = (x, y) => {
     asteroids.push(asteroid);
 }
 
+const startGame = () => {
+    return {
+        x: 20,
+        y: 20
+    }
+}
+
 // Added to exit the game
+const state = startGame();
 process.stdin.on('keypress', (str, key) => {
 
     // Listen to keypress event
@@ -29,6 +37,10 @@ process.stdin.on('keypress', (str, key) => {
         process.exit();
     }
 });
+
+const createPlayer = () => {
+    term.moveTo(state.x * 2, state.y, '🚀')
+}
 
 // Creates shower of asteroid sprites on playfield
 const createShower = () => {
@@ -47,6 +59,7 @@ const createShower = () => {
 const draw = () => {
     term.clear(); // Clear Buffer
     createAsteroid(Math.floor(Math.random() * 40), 0);
+    createPlayer();
     createShower();
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
