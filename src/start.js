@@ -28,13 +28,25 @@ process.stdin.on('keypress', (str, key) => {
         console.log('STOPPED', str);
         process.exit();
     }
-})
+});
+
+// Creates shower of asteroid sprites on playfield
+const createShower = () => {
+    asteroids.forEach((ast, index) => {
+        term.moveTo(ast.x * 2, ast.y, ast.sprite);
+        asteroids[index].y = asteroids[index].y + ast.y_velocity;
+
+        // Clears sprites to improve performance
+        if (ast.y > 40) {
+            asteroids.splice(index, 1);
+        }
+    })
+}
 
 // Draw function for rendering the game
 const draw = () => {
     term.clear(); // Clear Buffer
     createAsteroid(Math.floor(Math.random() * 40), 0);
-
-    console.log(asteroids);
+    createShower();
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
