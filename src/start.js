@@ -37,6 +37,7 @@ const startGame = () => {
     }
 }
 
+const moveSpeed = 1;
 const state = startGame();
 process.stdin.on('keypress', (str, key) => {
 
@@ -62,6 +63,13 @@ process.stdin.on('keypress', (str, key) => {
     if (key.name === 'left') state.pressedKeys.left = true;
     if (key.name === 'right') state.pressedKeys.right = true;
     if (key.name === 'space') state.pressedKeys.space = true;
+
+    // Move the player sprite based on the keys
+    if(state.pressedKeys.up) state.y = state.y - moveSpeed;
+    if(state.pressedKeys.down) state.y = state.y + moveSpeed;
+    if(state.pressedKeys.left) state.x = state.x - moveSpeed;
+    if(state.pressedKeys.right) state.x = state.x + moveSpeed;
+    if(state.pressedKeys.space) state = start();
 });
 
 // Creates player sprite and places it on screen
@@ -85,10 +93,8 @@ const createShower = () => {
 // Draw function for rendering the game
 const draw = () => {
     term.clear(); // Clear Buffer
-    // createAsteroid(Math.floor(Math.random() * 40), 0);
-    // createPlayer();
-    // createShower();
-
-    console.log(state.pressedKeys);
+    createAsteroid(Math.floor(Math.random() * 40), 0);
+    createPlayer();
+    createShower();
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
