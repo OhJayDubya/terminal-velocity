@@ -1,5 +1,5 @@
-import { terminal as term } from 'terminal-kit';
-import { emitKeypressEvents } from 'readline';
+import {terminal as term} from 'terminal-kit';
+import {emitKeypressEvents} from 'readline';
 
 // Setting title of terminal
 term.windowTitle('TERMINAL VELOCITY BY OWEN WRIGHT');
@@ -18,7 +18,7 @@ const createAsteroid = (x, y) => {
     asteroid.x_velocity = 0;
     asteroid.y_velocity = 1;
     asteroids.push(asteroid);
-}
+};
 
 // Configures initial game state with all defaults
 const startGame = () => {
@@ -37,7 +37,7 @@ const startGame = () => {
             space: false
         }
     }
-}
+};
 
 // Handling of game state and key presses
 const moveSpeed = 1;
@@ -51,7 +51,7 @@ process.stdin.on('keypress', (str, key) => {
     } else {
 
         // Keys state is all false
-        state.pressedKeys= {
+        state.pressedKeys = {
             left: false,
             right: false,
             up: false,
@@ -61,24 +61,24 @@ process.stdin.on('keypress', (str, key) => {
     }
 
     // Set the state of the keys pressed in the state object
-    if (key.name === 'up')  state.pressedKeys.up = true;
+    if (key.name === 'up') state.pressedKeys.up = true;
     if (key.name === 'down') state.pressedKeys.down = true;
     if (key.name === 'left') state.pressedKeys.left = true;
     if (key.name === 'right') state.pressedKeys.right = true;
     if (key.name === 'space') state.pressedKeys.space = true;
 
     // Move the player sprite based on the keys
-    if(state.pressedKeys.up) state.y = state.y - moveSpeed;
-    if(state.pressedKeys.down) state.y = state.y + moveSpeed;
-    if(state.pressedKeys.left) state.x = state.x - moveSpeed;
-    if(state.pressedKeys.right) state.x = state.x + moveSpeed;
-    if(state.pressedKeys.space) state = startGame();
+    if (state.pressedKeys.up) state.y = state.y - moveSpeed;
+    if (state.pressedKeys.down) state.y = state.y + moveSpeed;
+    if (state.pressedKeys.left) state.x = state.x - moveSpeed;
+    if (state.pressedKeys.right) state.x = state.x + moveSpeed;
+    if (state.pressedKeys.space) state = startGame();
 });
 
 // Creates player sprite and places it on screen
 const createPlayer = () => {
     term.moveTo(state.x * 2, state.y, '🚀')
-}
+};
 
 // Creates shower of asteroid sprites on playfield
 const createShower = () => {
@@ -100,7 +100,7 @@ const createShower = () => {
             state.active = false;
         }
     })
-}
+};
 
 // Head up display for game messages
 const HUD = () => {
@@ -116,7 +116,7 @@ const HUD = () => {
 
     // Display options on inactive state
     term.moveTo(1, 40, `CTRL + C to QUIT - SPACE to RESTART`);
-}
+};
 
 // Draw function for rendering the game
 const draw = () => {
@@ -131,5 +131,5 @@ const draw = () => {
 
     HUD(); // Draw heads-up display
     term.moveTo(0, 0);
-}
+};
 setInterval(draw, 33); // 33 ms =~ 30 FPS
