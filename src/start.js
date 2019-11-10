@@ -25,6 +25,7 @@ const startGame = () => {
     return {
         x: 20,
         y: 20,
+        active: true,
 
         // Sets pressed keys back to false
         pressedKeys: {
@@ -87,14 +88,32 @@ const createShower = () => {
         if (ast.y > 40) {
             asteroids.splice(index, 1);
         }
+
+        // If player and asteroid intersect set game state to false
+        if (ast.x === state.x && ast.y === state.y) {
+            state.active = false;
+        }
     })
+}
+
+// Head up display for game messages
+const HUD = () => {
+    if (!state.active) {
+        term.moveTo(10, 10, `GAME OVER!`)
+    }
 }
 
 // Draw function for rendering the game
 const draw = () => {
     term.clear(); // Clear Buffer
-    createAsteroid(Math.floor(Math.random() * 40), 0);
-    createPlayer();
-    createShower();
+
+    // Continue to draw sprites if game is active
+    if (state.active) {
+        createAsteroid(Math.floor(Math.random() * 40), 0);
+        createPlayer();
+        createShower();
+    }
+
+    HUD();
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
