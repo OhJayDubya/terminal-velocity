@@ -20,14 +20,23 @@ const createAsteroid = (x, y) => {
     asteroids.push(asteroid);
 }
 
+// Configures initial game state with all defaults
 const startGame = () => {
     return {
         x: 20,
-        y: 20
+        y: 20,
+
+        // Sets pressed keys back to false
+        pressedKeys: {
+            left: false,
+            right: false,
+            up: false,
+            down: false,
+            space: false
+        }
     }
 }
 
-// Added to exit the game
 const state = startGame();
 process.stdin.on('keypress', (str, key) => {
 
@@ -35,9 +44,27 @@ process.stdin.on('keypress', (str, key) => {
     if (key.ctrl && key.name === 'c') {
         console.log('STOPPED', str);
         process.exit();
+    } else {
+
+        // Keys state is all false
+        state.pressedKeys= {
+            left: false,
+            right: false,
+            up: false,
+            down: false,
+            space: false
+        }
     }
+
+    // Set the state of the keys pressed in the state object
+    if (key.name === 'up')  state.pressedKeys.up = true;
+    if (key.name === 'down') state.pressedKeys.down = true;
+    if (key.name === 'left') state.pressedKeys.left = true;
+    if (key.name === 'right') state.pressedKeys.right = true;
+    if (key.name === 'space') state.pressedKeys.space = true;
 });
 
+// Creates player sprite and places it on screen
 const createPlayer = () => {
     term.moveTo(state.x * 2, state.y, '🚀')
 }
@@ -58,8 +85,10 @@ const createShower = () => {
 // Draw function for rendering the game
 const draw = () => {
     term.clear(); // Clear Buffer
-    createAsteroid(Math.floor(Math.random() * 40), 0);
-    createPlayer();
-    createShower();
+    // createAsteroid(Math.floor(Math.random() * 40), 0);
+    // createPlayer();
+    // createShower();
+
+    console.log(state.pressedKeys);
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
