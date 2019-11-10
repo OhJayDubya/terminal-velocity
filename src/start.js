@@ -23,9 +23,10 @@ const createAsteroid = (x, y) => {
 // Configures initial game state with all defaults
 const startGame = () => {
     return {
+        active: true,
+        score: 0,
         x: 20,
         y: 20,
-        active: true,
 
         // Sets pressed keys back to false
         pressedKeys: {
@@ -38,13 +39,14 @@ const startGame = () => {
     }
 }
 
+// Handling of game state and key presses
 const moveSpeed = 1;
-const state = startGame();
+let state = startGame();
 process.stdin.on('keypress', (str, key) => {
 
     // Listen to keypress event
     if (key.ctrl && key.name === 'c') {
-        console.log('STOPPED', str);
+        console.log('Thanks for Playing!', str);
         process.exit();
     } else {
 
@@ -70,7 +72,7 @@ process.stdin.on('keypress', (str, key) => {
     if(state.pressedKeys.down) state.y = state.y + moveSpeed;
     if(state.pressedKeys.left) state.x = state.x - moveSpeed;
     if(state.pressedKeys.right) state.x = state.x + moveSpeed;
-    if(state.pressedKeys.space) state = start();
+    if(state.pressedKeys.space) state = startGame();
 });
 
 // Creates player sprite and places it on screen
@@ -87,6 +89,10 @@ const createShower = () => {
         // Clears sprites to improve performance
         if (ast.y > 40) {
             asteroids.splice(index, 1);
+
+            if (state.active) {
+                state.score = state.score + 1;
+            }
         }
 
         // If player and asteroid intersect set game state to false
@@ -99,8 +105,17 @@ const createShower = () => {
 // Head up display for game messages
 const HUD = () => {
     if (!state.active) {
-        term.moveTo(10, 10, `GAME OVER!`)
+
+        // Show final score at game over
+        term.moveTo(10, 10, `GAME OVER! SCORE: ${state.score}`)
+    } else {
+
+        // Shows score in game
+        term.moveTo(1, 1, `SCORE: ${state.score}`)
     }
+
+    // Display options on inactive state
+    term.moveTo(1, 40, `CTRL + C to QUIT - SPACE to RESTART`);
 }
 
 // Draw function for rendering the game
@@ -109,11 +124,12 @@ const draw = () => {
 
     // Continue to draw sprites if game is active
     if (state.active) {
-        createAsteroid(Math.floor(Math.random() * 40), 0);
-        createPlayer();
-        createShower();
+        createAsteroid(Math.floor(Math.random() * 40), 0); // Randomly generate asteroids
+        createPlayer(); // Draw Player
+        createShower(); // Draw Asteroids
     }
 
-    HUD();
+    HUD(); // Draw heads-up display
+    term.moveTo(0, 0);
 }
 setInterval(draw, 33); // 33 ms =~ 30 FPS
