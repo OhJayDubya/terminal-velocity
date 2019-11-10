@@ -1,7 +1,7 @@
 # Terminal Velocity
 In this day and age we have access to an almost unlimited supply of video games. Every genre we can imagine can be played right at our fingertips with our Smartphones, at home on the sofa with a number of consoles or sitting behind a custom built battle-station with the most powerful hardware on the planet.
 
-However when it comes to the creation of video games one of my favorite movements is the developers who challenge themselves to create games in the most inhospitable and unlikely of places. Everything from creating a FPS in just CSS, creating a game that runs just in your URL or my personal favorite the people who get DOOM to run on everything and anything.
+However when it comes to the creation of video games one of my favorite movements is the developers who challenge themselves to create games in the most inhospitable and unlikely of places. Everything from creating a [FPS in just CSS](https://keithclark.co.uk/labs/css-fps/), creating a game that runs [just in your URL](http://arnaud.at/emoji) or my personal favorite the people who get [DOOM to run on everything and anything](https://www.reddit.com/r/itrunsdoom/).
 
 So in tribute to my favorite game development movement I wanted to try my hand at it as well and asked myself, "Could I create a game in just Terminal?". For this I decided to set some basic rules to make sure that I was staying true to the movement and that most importantly it's fun:
 
